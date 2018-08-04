@@ -1,0 +1,37 @@
+﻿package code.animators
+{
+	import flash.display.MovieClip;
+	import code.plant.Plant;
+	import code.animators.PlantAnimator;
+	import code.decrypt.*;
+	import code.level.Level;
+
+	public class PlantAnimatorPrototype extends PlantAnimator
+	{
+		private var loader: LoaderAndDecryptor;
+		//[Prototype]植物自己需要的属性放在下面
+		
+		public function PlantAnimatorPrototype(row: int, line: int, level: Level)
+		{
+			//[Prototype]START
+			super(row, line, level);
+			xOffset = -160; //[Prototype]记得修改
+			yOffset = -140; //[Prototype]记得修改
+			this.loader = new LoaderAndDecryptor("peashooter");
+			loader.addEventListener(LoadingAndDecryptingEvent.COMPLETE, onComplete);
+			loader.load();
+		}
+
+		private function onComplete(e: LoadingAndDecryptingEvent): void
+		{
+			this.clip = loader.getData() as MovieClip;
+			loader.deleteData();
+			addToStage();
+		}
+		//[Prototype]END
+		//[Prototype]植物逻辑自己需要的代码放在下面
+
+
+	}
+
+}
